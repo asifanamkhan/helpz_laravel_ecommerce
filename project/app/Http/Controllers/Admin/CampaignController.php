@@ -106,24 +106,83 @@ class CampaignController extends Controller
         ), $messages);
         //--- Validation Section Ends
 
-         //--- Logic Section        
-        $data = new Campaign;
+         //--- Logic Section
 
-        $sign = Currency::where('is_default','=',1)->first();
-        $input = $request->all();
-        $input['specific_to'] = implode(',', $request->specific_to);
-        // Save Data
-        $data->fill($input)->save();
+        $transactionResult  = DB::transaction(function () use ($request) {
 
-        $campaign_id = Campaign::latest()->first();
-       foreach ($request->specific_to as $key => $value){
-           CampaignRelation::create([
-               'campaign_id' => $campaign_id->id,
-               'specific_to' => $value,
-           ]);
-       }
+            $data = new Campaign;
 
-       return back()->with('success','A new campaign created successfully');
+            $input = $request->all();
+            $input['specific_to'] = implode(',', $request->specific_to);
+            // Save Data
+            $data->fill($input)->save();
+
+//            $campaign_id = Campaign::latest()->first();
+//            //dd($campaign_id->available_to);
+//            foreach ($request->specific_to as $key => $value){
+//                CampaignRelation::create([
+//                    'campaign_id' => $campaign_id->id,
+//                    'available_to' => $campaign_id->available_to,
+//                    'specific_to' => $value,
+//                ]);
+//            }
+
+        if($request->available_to == 1){
+            //category
+            $products = Product::whereIn('category_id',$request->specific_to)->get(['campaign_id','id']);
+            foreach ($products as $product){
+                if($product->campaign_id == ''){
+                    $campaign_id = Product::findOrFail($product->id);
+                    $campaign_id->campaign_id = $data->id;
+                    $campaign_id->update();
+                }
+
+            }
+        }
+        elseif($request->available_to == 2){
+            //sub category
+            $products = Product::whereIn('subcategory_id',$request->specific_to)->get(['campaign_id','id']);
+            foreach ($products as $product){
+                if($product->campaign_id == ''){
+                    $campaign_id = Product::findOrFail($product->id);
+                    $campaign_id->campaign_id = 1;
+                    $campaign_id->update();
+                }
+
+            }
+        }
+        elseif ($request->available_to == 3){
+            //child category
+            $products = Product::whereIn('childcategory_id',$request->specific_to)->get(['campaign_id','id']);
+            foreach ($products as $product){
+                if($product->campaign_id == ''){
+                    $campaign_id = Product::findOrFail($product->id);
+                    $campaign_id->campaign_id = 1;
+                    $campaign_id->update();
+                }
+
+            }
+        }
+        elseif ($request->available_to == 4){
+            //product
+            $products = Product::whereIn('id',$request->specific_to)->get(['campaign_id','id']);
+            foreach ($products as $product){
+                if($product->campaign_id == ''){
+                    $campaign_id = Product::findOrFail($product->id);
+                    $campaign_id->campaign_id = 1;
+                    $campaign_id->update();
+                }
+
+            }
+        }
+        elseif ($request->available_to == 5){
+            //product
+            dd(5);
+        }
+
+        },2);
+
+       return back()->with('success','check the table bellow. if campaign is not created then some of your product you have select are already in under campaign. please deactivated or remove the campaign to start again');
 
     }
     public function dropdown($id){
@@ -196,6 +255,7 @@ class CampaignController extends Controller
                     CampaignRelation::create([
                         'campaign_id' => $id,
                         'specific_to' => $value,
+                        'available_to' => $request->available_to,
                     ]);
                 }
             }
@@ -206,6 +266,7 @@ class CampaignController extends Controller
                     CampaignRelation::create([
                         'campaign_id' => $id,
                         'specific_to' => $value,
+                        'available_to' => $request->available_to,
                     ]);
                 }
             }

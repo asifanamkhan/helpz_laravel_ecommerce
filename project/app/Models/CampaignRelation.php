@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CampaignRelation extends Model
 {
-    protected $fillable = ['campaign_id','specific_to'];
+    protected $fillable = ['campaign_id','specific_to','available_to'];
 
     public function products()
     {

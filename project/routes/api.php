@@ -35,7 +35,12 @@ Route::post('login', 'User\LoginController@login');
 Route::post('product/cat/sub/child', 'Api\ApiCategoryController@productAscategories');
 Route::post('product/search/frontend', 'Api\ApiCategoryController@productSearch');
 
+//wish list
+Route::post('wish-list-store', 'Api\ApiOrderController@wishListStore');
+
 //---order
 Route::post('order/store', 'Api\ApiOrderController@store');
 
 Route::get('reward-condition', 'Api\ApiOrderController@rewardCondition');
+
+Route::post('wish-list-store', 'Api\ApiOrderController@rewardCondition');

@@ -97,7 +97,7 @@ h3{
                                 <div class="col-lg-4">
                                     <div class="row">
                                         <div class="col-lg-12 pt-4">
-                                            <select id="discount_type" name="discount_type" required>
+                                            <select id="discount_type" name="discount_type" >
                                                 <option value="">Select Option</option>
                                                 <option value="1">{{ __('Price Discount') }}</option>
                                                 <option value="2">{{ __('Cash Back') }}</option>
@@ -114,7 +114,7 @@ h3{
                                                     <input id="" type="hidden" name="status" value="1" >
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <input type="number" min=0 class="input-field" placeholder="{{ __('eg: 10%') }}" name="offer" required>
+                                                    <input type="number" min=0 class="input-field" placeholder="{{ __('eg: 10%') }}" name="offer" >
                                                 </div>
                                             </div>
                                         </div>
@@ -127,7 +127,7 @@ h3{
                                             <h4 class="heading">{{ __('Available to') }}</h4>
                                         </div>
                                         <div class="col-lg-12">
-                                            <select  id="available_to" name="available_to" required>
+                                            <select  id="available_to" name="available_to" >
                                                 <option value="">Select Option</option>
                                                 <option data-href="{{ route('admin-campaign-dropdown-load',1) }}" value="1">{{ __('Category') }}</option>
                                                 <option data-href="{{ route('admin-campaign-dropdown-load',2) }}" value="2">{{ __('Sub Category') }}</option>
@@ -142,7 +142,7 @@ h3{
                                         </div>
                                         <div class="col-lg-12">
 
-                                            <select multiple id="specific_to" class="form-control" name="specific_to[]" required>
+                                            <select multiple id="specific_to" class="form-control" name="specific_to[]" >
 
                                             </select>
                                         </div>
@@ -166,7 +166,7 @@ h3{
                                             <h4 class="heading">{{ __('Start Date') }}</h4>
                                         </div>
                                         <div class="col-lg-12">
-                                             <input type="date" class="input-field"  name="start_date" required>
+                                             <input type="date" class="input-field"  name="start_date" >
                                         </div>
                                     </div>
 
@@ -175,7 +175,7 @@ h3{
                                             <h4 class="heading">{{ __('End Date') }}</h4>
                                         </div>
                                         <div class="col-lg-12">
-                                            <input type="date" class="input-field"  name="end_date" required>
+                                            <input type="date" class="input-field"  name="end_date" >
                                         </div>
                                     </div>
 
@@ -195,7 +195,7 @@ h3{
                                             <h4 class="heading">{{ __('Start Time') }}</h4>
                                         </div>
                                         <div class="col-lg-12">
-                                             <input type="time" class="input-field"  name="start_time" required>
+                                             <input type="time" class="input-field"  name="start_time" >
                                         </div>
                                     </div>
 
@@ -204,7 +204,7 @@ h3{
                                             <h4 class="heading">{{ __('End Time') }}</h4>
                                         </div>
                                         <div class="col-lg-12">
-                                            <input type="time" class="input-field"  name="end_time" required>
+                                            <input type="time" class="input-field"  name="end_time" >
                                         </div>
                                     </div>
 

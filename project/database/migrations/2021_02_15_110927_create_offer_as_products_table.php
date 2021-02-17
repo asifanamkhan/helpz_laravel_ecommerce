@@ -15,6 +15,13 @@ class CreateOfferAsProductsTable extends Migration
     {
         Schema::create('offer_as_products', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('product_id');
+            $table->double('offer_price');
+            $table->string('quantity')->nullable();
+            $table->string('banner');
+            $table->string('start_date')->nullable();
+            $table->string('end_date')->nullable();
+            $table->string('user_id')->nullable();
             $table->timestamps();
         });
     }
